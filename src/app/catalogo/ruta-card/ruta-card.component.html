@@ -1,24 +1,24 @@
 <article class="ruta-card">
-  <img [src]="ruta.imagen" [alt]="ruta.nombre" />
+  <img [src]="ruta().imagen" [alt]="ruta().nombre" />
   <div class="card-body">
-    <h3 class="card-title">{{ ruta.nombre }}</h3>
-    <p class="card-location">📍 {{ ruta.ubicacion }}</p>
-    <p class="card-desc">{{ ruta.descripcion }}</p>
+    <h3 class="card-title">{{ ruta().nombre }}</h3>
+    <p class="card-location">📍 {{ ruta().ubicacion }}</p>
+    <p class="card-desc">{{ ruta().descripcion }}</p>
     <div class="d-flex gap-2 mb-3 flex-wrap">
-      <span class="badge-dif" [class]="ruta.dificultad.toLowerCase()">{{ ruta.dificultad }}</span>
-      <span class="type-chip">{{ ruta.tipo }}</span>
-      <span class="type-chip">⏱ {{ ruta.duracion }}</span>
+      <span class="badge-dif" [class]="ruta().dificultad.toLowerCase()">{{ ruta().dificultad }}</span>
+      <span class="type-chip">{{ ruta().tipo }}</span>
+      <span class="type-chip">⏱ {{ ruta().duracion }}</span>
     </div>
     <div class="card-footer-row">
-      <div class="price">L. {{ ruta.precio }} <span>/ persona</span></div>
-      <div style="display:flex; gap:8px; align-items:center;">
-        <span style="font-size:0.78rem; color:var(--jungle-light); font-weight:600;">★ {{ ruta.popularidad }}%</span>
-        @if (isAdmin) {
-          <button class="btn-delete" (click)="onDelete.emit(ruta.id)">Eliminar</button>
+      <div class="price">L. {{ ruta().precio }} <span>/ persona</span></div>
+      <div class="card-actions">
+        <span class="card-popularity">★ {{ ruta().popularidad }}%</span>
+        @if (isAdmin()) {
+          <button class="btn-delete" (click)="onDelete.emit(ruta().id)">Eliminar</button>
         }
-        @if (isLoggedIn && !isAdmin) {
-          <button class="btn-fav" [class.active]="isFavorito" (click)="onFavorito.emit(ruta.id)">
-            {{ isFavorito ? '★ Guardado' : '☆ Favorito' }}
+        @if (isLoggedIn() && !isAdmin()) {
+          <button class="btn-fav" [class.active]="isFavorito()" (click)="onFavorito.emit(ruta().id)">
+            {{ isFavorito() ? '★ Guardado' : '☆ Favorito' }}
           </button>
         }
       </div>

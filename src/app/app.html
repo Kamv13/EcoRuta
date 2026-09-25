@@ -1,44 +1,11 @@
-<nav class="eco-navbar">
-  <a class="brand" routerLink="/dashboard">EcoRuta Honduras</a>
-  <div class="nav-links">
-    <a class="nav-btn" routerLink="/dashboard" routerLinkActive="active">Inicio</a>
-    <a class="nav-btn" routerLink="/catalogo" routerLinkActive="active">Rutas Disponibles</a>
-
-    @if (auth.isLoggedIn()) {
-      <span class="nav-user">
-         {{ auth.currentUser()?.nombre }}
-      </span>
-      <button class="nav-btn btn-logout" (click)="logout()">Salir</button>
-    } @else {
-      <button class="nav-btn btn-login" (click)="showLogin.set(true)">Iniciar Sesión</button>
-    }
-  </div>
-</nav>
+<app-navbar (onLogin)="showLogin.set(true)" />
 
 <main class="eco-main">
-  <router-outlet></router-outlet>
+  <router-outlet />
 </main>
 
-<footer class="eco-footer">
-  <p>&copy; 2026 EcoRuta CEUTEC &mdash; Promoviendo el turismo ecológico en Honduras</p>
-</footer>
+<app-footer />
 
 @if (showLogin()) {
-  <div class="modal-overlay" (click)="onOverlayClick($event)">
-    <div class="modal-box">
-      <button class="modal-close" (click)="showLogin.set(false)">&times;</button>
-      <h2>Bienvenido</h2>
-      <p class="modal-sub">Accede a tu cuenta para explorar las rutas.</p>
-      <label>Correo electrónico</label>
-      <input type="email" [ngModel]="loginEmail()" (ngModelChange)="loginEmail.set($event)"
-        placeholder="correo@ejemplo.com" />
-      <label>Contraseña</label>
-      <input type="password" [ngModel]="loginPassword()" (ngModelChange)="loginPassword.set($event)"
-        placeholder="••••••••" (keyup.enter)="submitLogin()" />
-      @if (loginError()) {
-        <p class="login-error">{{ loginError() }}</p>
-      }
-      <button class="btn-submit" (click)="submitLogin()">Iniciar Sesión</button>
-    </div>
-  </div>
+  <app-login-modal (onClose)="showLogin.set(false)" />
 }

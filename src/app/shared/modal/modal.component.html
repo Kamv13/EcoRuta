@@ -1,0 +1,6 @@
+<div class="modal-overlay" (click)="cerrarDesdeOverlay($event)">
+  <div class="modal-box {{ variant() }}">
+    <button class="modal-close" (click)="onClose.emit()">&times;</button>
+    <ng-content />
+  </div>
+</div>

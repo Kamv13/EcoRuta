@@ -1,0 +1,34 @@
+<div class="eco-panel h-100">
+  <div class="panel-header">Recomendaciones para ti</div>
+  <div class="panel-body">
+    @if (auth.isLoggedIn() && !auth.isAdmin()) {
+      @if (auth.currentUser(); as user) {
+        <div class="nivel-row">
+          <label>Tu nivel</label>
+          <select [ngModel]="user.nivel" (ngModelChange)="auth.setNivel($event)">
+            @for (nivel of niveles; track nivel) {
+              <option [value]="nivel">{{ nivel }}</option>
+            }
+          </select>
+        </div>
+        <p class="reco-sub">
+          Rutas de dificultad {{ dificultadPorNivel[user.nivel] }} y cercanas, priorizando las actividades que guardas en favoritos.
+        </p>
+      }
+    } @else {
+      <p class="reco-sub">Inicia sesión para recibir recomendaciones según tu nivel. Mientras tanto, estas son las más populares.</p>
+    }
+
+    @for (ruta of recomendaciones(); track ruta.id) {
+      <div class="reco-item">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <h4>{{ ruta.nombre }}</h4>
+          <span class="badge-dif" [class]="ruta.dificultad.toLowerCase()">{{ ruta.dificultad }}</span>
+        </div>
+        <p>{{ ruta.tipo }} - {{ ruta.ubicacion }}</p>
+      </div>
+    } @empty {
+      <p class="reco-sub">No hay rutas disponibles para tu nivel todavía.</p>
+    }
+  </div>
+</div>

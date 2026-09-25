@@ -1,0 +1,14 @@
+<nav class="eco-navbar">
+  <a class="brand" routerLink="/dashboard">EcoRuta Honduras</a>
+  <div class="nav-links">
+    <a class="nav-btn" routerLink="/dashboard" routerLinkActive="active">Inicio</a>
+    <a class="nav-btn" routerLink="/catalogo" routerLinkActive="active">Rutas Disponibles</a>
+
+    @if (auth.isLoggedIn()) {
+      <span class="nav-user">{{ auth.currentUser()?.nombre }}</span>
+      <button class="nav-btn btn-logout" (click)="auth.logout()">Salir</button>
+    } @else {
+      <button class="nav-btn btn-login" (click)="onLogin.emit()">Iniciar Sesión</button>
+    }
+  </div>
+</nav>

@@ -1,0 +1,14 @@
+<app-modal (onClose)="onClose.emit()">
+  <h2>Bienvenido</h2>
+  <p class="modal-sub">Accede a tu cuenta para explorar las rutas.</p>
+  <label>Correo electrónico</label>
+  <input type="email" [ngModel]="loginEmail()" (ngModelChange)="loginEmail.set($event)"
+    placeholder="correo@ejemplo.com" />
+  <label>Contraseña</label>
+  <input type="password" [ngModel]="loginPassword()" (ngModelChange)="loginPassword.set($event)"
+    placeholder="••••••••" (keyup.enter)="submitLogin()" />
+  @if (loginError()) {
+    <p class="login-error">{{ loginError() }}</p>
+  }
+  <button class="btn-submit" (click)="submitLogin()">Iniciar Sesión</button>
+</app-modal>

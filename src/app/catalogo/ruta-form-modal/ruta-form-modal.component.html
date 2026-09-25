@@ -1,0 +1,41 @@
+<app-modal variant="wide" (onClose)="onClose.emit()">
+  <h2>Nueva Ruta</h2>
+  <p class="modal-sub">Completa los datos para agregar una ruta al catálogo.</p>
+  <label>Nombre</label>
+  <input type="text" [ngModel]="newNombre()" (ngModelChange)="newNombre.set($event)" placeholder="Nombre de la ruta" />
+  <label>Ubicación</label>
+  <input type="text" [ngModel]="newUbicacion()" (ngModelChange)="newUbicacion.set($event)" placeholder="Ej: Lago de Yojoa, Cortés" />
+  <div class="form-row">
+    <div>
+      <label>Dificultad</label>
+      <select [ngModel]="newDificultad()" (ngModelChange)="newDificultad.set($event)">
+        @for (dificultad of dificultades; track dificultad) {
+          <option [value]="dificultad">{{ dificultad }}</option>
+        }
+      </select>
+    </div>
+    <div>
+      <label>Tipo</label>
+      <select [ngModel]="newTipo()" (ngModelChange)="newTipo.set($event)">
+        @for (tipo of tipos; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div>
+      <label>Precio (L.)</label>
+      <input type="number" [ngModel]="newPrecio()" (ngModelChange)="newPrecio.set(+$event)" placeholder="100" />
+    </div>
+    <div>
+      <label>Duración</label>
+      <input type="text" [ngModel]="newDuracion()" (ngModelChange)="newDuracion.set($event)" placeholder="Ej: 3 horas" />
+    </div>
+  </div>
+  <label>URL de imagen</label>
+  <input type="text" [ngModel]="newImagen()" (ngModelChange)="newImagen.set($event)" placeholder="https://ejemplo.com/imagen.jpg" />
+  <label>Descripción</label>
+  <textarea [ngModel]="newDescripcion()" (ngModelChange)="newDescripcion.set($event)" placeholder="Breve descripción de la ruta..."></textarea>
+  <button class="btn-submit" (click)="guardar()">Guardar Ruta</button>
+</app-modal>

@@ -1,71 +1,46 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { EcoService } from '../eco.service';
-import { AuthService } from '../auth.service';
+import { EcoService, Ruta, Filtros } from '../services/eco.service';
+import { AuthService } from '../services/auth.service';
 import { RutaCardComponent } from './ruta-card/ruta-card.component';
+import { FilterBarComponent } from './filter-bar/filter-bar.component';
+import { RutaFormModalComponent } from './ruta-form-modal/ruta-form-modal.component';
+import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-delete-modal.component';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [FormsModule, RutaCardComponent],
+  imports: [RutaCardComponent, FilterBarComponent, RutaFormModalComponent, ConfirmDeleteModalComponent],
   templateUrl: './catalogo.component.html'
 })
 export class CatalogoComponent {
   protected ecoService = inject(EcoService);
   protected auth = inject(AuthService);
 
-  filtroNombre = signal('');
-  filtroDificultad = signal('');
-  filtroPrecio = signal(1000);
-  filtroTipo = signal('');
+  filtros = signal<Filtros>({ nombre: '', dificultad: '', precio: 1000, tipo: '' });
   soloFavoritos = signal(false);
-
-    
   showAddModal = signal(false);
-  newNombre = signal('');
-  newUbicacion = signal('');
-  newDificultad = signal('Media');
-  newPrecio = signal(100);
-  newDuracion = signal('');
-  newTipo = signal('Senderismo');
-  newDescripcion = signal('');
-  newImagen = signal('');
+  rutaAEliminar = signal<Ruta | null>(null);
 
   rutasFiltradas = computed(() => {
-    let rutas = this.ecoService.getFilteredRutas({
-      nombre: this.filtroNombre(),
-      dificultad: this.filtroDificultad(),
-      precio: this.filtroPrecio(),
-      tipo: this.filtroTipo()
-    });
+    let rutas = this.ecoService.getFilteredRutas(this.filtros());
     if (this.soloFavoritos() && !this.auth.isAdmin()) {
       rutas = rutas.filter(r => this.auth.isFavorito(r.id));
     }
     return rutas;
   });
 
-  deleteRuta(id: number) {
-    if (confirm('¿Eliminar esta ruta?')) {
-      this.ecoService.deleteRuta(id);
-    }
+  submitAddRuta(ruta: Omit<Ruta, 'id'>) {
+    this.ecoService.addRuta(ruta);
+    this.showAddModal.set(false);
   }
 
-  submitAddRuta() {
-    if (!this.newNombre() || !this.newUbicacion()) return;
-    this.ecoService.addRuta({
-      nombre: this.newNombre(),
-      ubicacion: this.newUbicacion(),
-      dificultad: this.newDificultad(),
-      precio: this.newPrecio(),
-      duracion: this.newDuracion(),
-      tipo: this.newTipo(),
-      popularidad: 50,
-      imagen: this.newImagen() || `https://placehold.co/600x400/1B4332/B7E4C7?text=${encodeURIComponent(this.newNombre())}`,
-      descripcion: this.newDescripcion()
-    });
-    this.showAddModal.set(false);
-    this.newNombre.set(''); this.newUbicacion.set('');
-    this.newDuracion.set(''); this.newDescripcion.set('');
-    this.newImagen.set('');
+  deleteRuta(id: number) {
+    this.rutaAEliminar.set(this.ecoService.rutas().find(r => r.id === id) ?? null);
+  }
+
+  confirmarEliminar() {
+    const ruta = this.rutaAEliminar();
+    if (ruta) this.ecoService.deleteRuta(ruta.id);
+    this.rutaAEliminar.set(null);
   }
 }

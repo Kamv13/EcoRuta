@@ -1,0 +1,34 @@
+<div class="filter-bar">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-4">
+      <label>Buscar ruta</label>
+      <input type="text" class="form-control" [ngModel]="filtros().nombre"
+        (ngModelChange)="actualizar('nombre', $event)" placeholder="Nombre de la ruta...">
+    </div>
+    <div class="col-md-2">
+      <label>Dificultad</label>
+      <select class="form-select" [ngModel]="filtros().dificultad"
+        (ngModelChange)="actualizar('dificultad', $event)">
+        <option value="">Todas</option>
+        @for (dificultad of dificultades; track dificultad) {
+          <option [value]="dificultad">{{ dificultad }}</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label>Precio máximo: L. {{ filtros().precio }}</label>
+      <input type="range" class="form-range" min="0" max="1000" step="50"
+        [ngModel]="filtros().precio" (ngModelChange)="actualizar('precio', +$event)">
+    </div>
+    <div class="col-md-3">
+      <label>Actividad</label>
+      <select class="form-select" [ngModel]="filtros().tipo"
+        (ngModelChange)="actualizar('tipo', $event)">
+        <option value="">Todas</option>
+        @for (tipo of tipos; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>

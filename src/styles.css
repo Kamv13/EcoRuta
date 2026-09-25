@@ -101,6 +101,12 @@ h1, h2, h3 {
 }
 
 
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 main.eco-main {
   flex: 1;
   padding: 2.5rem 2rem;
@@ -657,6 +663,100 @@ main.eco-main {
   font-size: 0.9rem;
   margin-bottom: 1rem;
   color: var(--text-dark);
+}
+
+.modal-box.danger {
+  border-top: 6px solid var(--danger);
+}
+.modal-box.danger h2 { color: var(--danger); }
+
+.delete-target {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--danger-light);
+  border: 1px solid var(--danger);
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 1.5rem;
+  color: var(--danger);
+}
+.delete-target span {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+.modal-actions > button { flex: 1; }
+
+.btn-cancel,
+.btn-danger-solid {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-cancel {
+  background: var(--earth-bg);
+  color: var(--text-mid);
+  border: 1px solid var(--earth-border);
+}
+.btn-cancel:hover { background: var(--earth-border); }
+.btn-danger-solid {
+  background: var(--danger);
+  color: var(--white);
+  border: 1px solid var(--danger);
+}
+.btn-danger-solid:hover { background: #962D22; }
+
+.stat-card .stat-value { margin-top: 0.5rem; }
+
+.nivel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+.nivel-row label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.nivel-row select {
+  border: 1px solid var(--earth-border);
+  background: var(--earth-bg);
+  color: var(--text-dark);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+}
+
+.reco-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.card-popularity {
+  font-size: 0.78rem;
+  color: var(--jungle-light);
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {

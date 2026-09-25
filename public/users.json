@@ -5,6 +5,7 @@
     "email": "admin@ecoruta.hn",
     "password": "admin123",
     "isAdmin": true,
+    "nivel": "Experto",
     "favoritos": []
   },
   {
@@ -13,6 +14,7 @@
     "email": "kevin@ecoruta.hn",
     "password": "kevin123",
     "isAdmin": false,
+    "nivel": "Novato",
     "favoritos": []
   }
 ]

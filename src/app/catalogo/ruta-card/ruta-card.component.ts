@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Ruta } from '../../eco.service';
+import { Component, input, output } from '@angular/core';
+import { Ruta } from '../../services/eco.service';
 
 @Component({
   selector: 'app-ruta-card',
@@ -7,10 +7,10 @@ import { Ruta } from '../../eco.service';
   templateUrl: './ruta-card.component.html'
 })
 export class RutaCardComponent {
-  @Input() ruta!: Ruta;
-  @Input() isAdmin = false;
-  @Input() isLoggedIn = false;
-  @Input() isFavorito = false;
-  @Output() onDelete = new EventEmitter<number>();
-  @Output() onFavorito = new EventEmitter<number>();
+  ruta = input.required<Ruta>();
+  isAdmin = input(false);
+  isLoggedIn = input(false);
+  isFavorito = input(false);
+  onDelete = output<number>();
+  onFavorito = output<number>();
 }

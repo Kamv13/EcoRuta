@@ -1,0 +1,11 @@
+<div class="eco-panel h-100">
+  <div class="panel-header">Rutas por Región</div>
+  <div class="panel-body">
+    @for (region of regiones() | keyvalue; track region.key) {
+      <div class="region-item">
+        {{ region.key }}
+        <span class="region-badge">{{ region.value }} actividades</span>
+      </div>
+    }
+  </div>
+</div>

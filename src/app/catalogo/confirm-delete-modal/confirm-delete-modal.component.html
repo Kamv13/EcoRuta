@@ -1,0 +1,12 @@
+<app-modal variant="danger" (onClose)="onClose.emit()">
+  <h2>Eliminar ruta</h2>
+  <p class="modal-sub">Esta acción no se puede deshacer. Se eliminará la siguiente ruta:</p>
+  <div class="delete-target">
+    <strong>{{ ruta().nombre }}</strong>
+    <span>📍 {{ ruta().ubicacion }}</span>
+  </div>
+  <div class="modal-actions">
+    <button class="btn-cancel" (click)="onClose.emit()">Cancelar</button>
+    <button class="btn-danger-solid" (click)="onConfirm.emit()">Eliminar</button>
+  </div>
+</app-modal>
